@@ -1,0 +1,80 @@
+{
+  "createdBy": "ea102b44-672d-4c85-8280-4c5cb76213e9",
+  "createdAt": "2023-09-27T13:40:36.510Z",
+  "updatedBy": "e6019d53-7cb0-4a54-88c5-65a6b795415f",
+  "updatedAt": "2023-09-27T13:40:36.511Z",
+  "id": "644cfe1d-6b4b-4447-8acf-3218d5f095ba",
+  "legalName": "Diya-Watts LLC",
+  "doingBusinessAs": "Diya-Watts LLC",
+  "phone": null,
+  "rating": "A",
+  "externalRating": "--",
+  "status": "Active",
+  "authorityStatus": "Active",
+  "authorityDate": "2024-02-07T17:00:01.000Z",
+  "addresses": [
+    {
+        "id": "69a723aa-46de-450f-8124-dd8bad2fe7fa",
+        "type": "office",
+        "country": "US",
+        "state": "WI",
+        "city": "Green Bay",
+        "streetAddress": "Green Bay, WI",
+        "address": "217 WASHINGTON AVE",
+        "zip": "54302"
+    },
+    {
+        "id": "f0a5baff-b642-4619-8918-ffea985012f7",
+        "type": "mailing",
+        "country": "US",
+        "state": "GA",
+        "city": "grtegrt",
+        "streetAddress": "",
+        "address": "fewf",
+        "zip": "54302"
+    }
+],
+  "tags": [
+    {
+      "id": "424439f3-5997-4b63-bad5-1f4f7c6808ab",
+      "name": "Broker require email",
+      "key": "BROKER_REQUIRE_EMAIL",
+      "level": "error",
+      "createdAt": "2023-08-25T17:23:07.953Z",
+      "updatedAt": "2023-08-25T17:23:07.953Z",
+      "createdBy": "d554a9ce-2b8c-4fd0-80cc-316b548e6fab",
+      "updatedBy": "d554a9ce-2b8c-4fd0-80cc-316b548e6fab"
+    }
+  ],
+  "contacts": [
+    {
+      "id": "76473e45-8499-4801-bb24-9c01bcd11e6b",
+      "name": "John Smith",
+      "countryPhoneCode": "US",
+      "phone": "765-461-9920 x321",
+      "email": "john@smith.com",
+      "role": "other"
+    }
+  ],
+  "emails": [
+      {
+          "email": "9bdccf87-bcd5-4d06-b0cb-aca21cd7c9d2@bobtailtest.com",
+          "id": "66944f46-9299-4bda-bdf9-ebcf75b51eef",
+          "type": "NOA"
+      },
+      {
+          "email": "18ebc61f-ebb3-4db9-83e2-5f631068ae4e@bobtailtest.com",
+          "id": "afd88e0d-40f7-40f1-83d0-de282b3b2c76",
+          "type": "payment_status"
+      },
+      {
+          "email": "7c31ef30-3ddd-403a-aa14-0add13939387@bobtailtest.com",
+          "id": "8ce2d3d7-d372-4e6f-a7f4-9dcbdd350579",
+          "type": "invoice_delivery"
+      }
+  ],
+  "mc": "9673471",
+  "dot": "9167642",
+  "portalUrl": null,
+  "displayRating": "A"
+}

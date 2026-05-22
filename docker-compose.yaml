@@ -1,0 +1,31 @@
+services:
+  db:
+    container_name: bobtaillm-db-local
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      - POSTGRES_DB=bobtaillm
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "15432:5432"
+    volumes:
+      - lm-db-local:/var/lib/postgresql/data
+  db-test:
+    container_name: bobtaillm-db-test
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=bobtaillm-test
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "15433:5432"
+    volumes:
+      - lm-db-test:/var/lib/postgresql/data
+volumes:
+  lm-db-local:
+    driver: local
+  lm-db-test:
+    driver: local

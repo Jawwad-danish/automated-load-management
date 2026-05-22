@@ -1,0 +1,575 @@
+{
+	"info": {
+		"_postman_id": "64bbd7da-a817-4c5a-85d8-eb95c3456b22",
+		"name": "Load Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33997543"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Tokens are in response\", function () {",
+									"    const response = pm.response.json();",
+									"    pm.environment.set(\"auth0-access-token\", response.accessToken);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"{{username}}\",\n    \"password\": \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth-host}}/auth/login",
+							"host": [
+								"{{auth-host}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Client",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Tokens are in response\", function () {",
+									"    const response = pm.response.json();",
+									"    pm.environment.set(\"clientId\", response.id);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth0-access-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{auth-host}}/clients/me",
+							"host": [
+								"{{auth-host}}"
+							],
+							"path": [
+								"clients",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Drivers",
+			"item": [
+				{
+					"name": "Get by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/clients/{{clientId}}/drivers/{{driverId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"clients",
+								"{{clientId}}",
+								"drivers",
+								"{{driverId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/clients/{{clientId}}/drivers/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"clients",
+								"{{clientId}}",
+								"drivers",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create driver",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Set invoice id\", function () {",
+									"    const body = pm.response.json();",
+									"",
+									"    if (pm.response.code === 201) {",
+									"        pm.environment.set(\"driverId\", body.id);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"John Doe\",\n    \"phoneNumber\": \"+41311111111\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/clients/{{clientId}}/drivers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"clients",
+								"{{clientId}}",
+								"drivers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update driver",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Bruce Wayne\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/clients/{{clientId}}/drivers/6886e1f7-ecb3-48cc-88f3-5281c31c874f",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"clients",
+								"{{clientId}}",
+								"drivers",
+								"6886e1f7-ecb3-48cc-88f3-5281c31c874f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Loads",
+			"item": [
+				{
+					"name": "Get loads stats",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/loads/stats/{{loadId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"loads",
+								"stats",
+								"{{loadId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete load",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/loads/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"loads",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get loads",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/clients/{{clientId}}/loads?page=1&limit=3&sort=createdAt:ASC",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"clients",
+								"{{clientId}}",
+								"loads"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "3"
+								},
+								{
+									"key": "sort",
+									"value": "createdAt:ASC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Load",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"brokerName\": \"bob sab\",\n    \"loadNumber\": \"LM53-45645664\",\n    \"pickUpLocation\": {\n        \"fullAddress\": \"chinch pokli bander, khaao gali\",\n        \"city\": \"karachi\",\n        \"state\": \"california\"\n    },\n    \"dropOffLocation\": {\n        \"fullAddress\": \"new western parkways\",\n        \"city\": \"newport\",\n        \"state\": \"florida\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/clients/{{clientId}}/loads/f8e9c7d6-5a4b-4e8e-9a2c-3d4e5f6b7c8d",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"clients",
+								"{{clientId}}",
+								"loads",
+								"f8e9c7d6-5a4b-4e8e-9a2c-3d4e5f6b7c8d"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Health",
+			"item": [
+				{
+					"name": "Get Health",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/health",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Documents",
+			"item": [
+				{
+					"name": "Upload document",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Set document id\", function () {",
+									"    const body = pm.response.json();",
+									"",
+									"    if (pm.response.code === 201) {",
+									"        pm.environment.set(\"documentId\", body[0].id);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"name\": \"rate-con.pdf\",\n        \"label\": \"rate con\",\n        \"type\": \"rate_confirmation\",\n        \"filestackUrl\": \"http://google.ro\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/clients/{{clientId}}/loads/{{loadId}}/documents",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"clients",
+								"{{clientId}}",
+								"loads",
+								"{{loadId}}",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete document",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/clients/{{clientId}}/loads/{{loadId}}/documents/{{documentId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"clients",
+								"{{clientId}}",
+								"loads",
+								"{{loadId}}",
+								"documents",
+								"{{documentId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{auth0-access-token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

@@ -1,0 +1,77 @@
+{
+  "created_by": "84dac616-898e-4a3f-8e11-a5b243438de1",
+  "created_at": "2023-04-10T14:26:28.000Z",
+  "updated_by": "d3358356-3423-4135-8bb5-3059afc46c7d",
+  "updated_at": "2023-04-10T14:26:28.000Z",
+  "id": "c371e690-c0c5-4a63-be0d-ee9f1444bf66",
+  "name": "Ariella-Sweeney LLC",
+  "email": "test@bobtailtest.com",
+  "shortName": "Ariella-Sweeney",
+  "doingBusinessAs": "Sweeney LLC",
+  "mc": "6774751",
+  "dot": "6354577",
+  "ein": "6354523",
+  "insuranceStatus": "Active",
+  "commonAuthorityStatus" : "Active",
+  "documents": [{
+    "id": "af8d4fcd-7661-4d85-9425-af3cccbb28a4",
+    "externalUrl": "https://ic-dev-public-resources.s3.us-east-1.amazonaws.com/assets/bobtail-logo.png",
+    "internalUrl": "https://ic-dev-public-resources.s3.us-east-1.amazonaws.com/assets/bobtail-logo.png",
+    "type": "certificate_of_insurance",
+    "created_at": "2023-04-10T14:26:28.000Z",
+    "updated_at": "2023-04-10T14:26:28.000Z",
+    "created_by": "d306f443-1913-4b72-964c-749d8f05fd8b",
+    "updated_by": "ac7a8ff7-554b-4137-8081-2fde00ed42be"
+  },
+  {
+    "id": "af8d4fcd-7661-4d85-9425-af3cccbb28a8",
+    "externalUrl": "https://ic-dev-public-resources.s3.us-east-1.amazonaws.com/assets/bobtail-logo.png",
+    "internalUrl": "https://ic-dev-public-resources.s3.us-east-1.amazonaws.com/assets/bobtail-logo.png",
+    "type": "assignment letter",
+    "created_at": "2023-04-10T14:26:28.000Z",
+    "updated_at": "2023-04-10T14:26:28.000Z",
+    "created_by": "d306f443-1913-4b72-964c-749d8f05fd8b",
+    "updated_by": "ac7a8ff7-554b-4137-8081-2fde00ed42be"
+  }],
+  "tags": [],
+  "factoringRatePercentage": "0.4",
+  "language": [
+    "english"
+  ],
+  "clientContacts": [
+    {
+        "id": "babcd755-3c76-4ca0-840e-1670370f930f",
+        "name": "test",
+        "email": "test@test.com",
+        "notifications": true,
+        "primary": true,
+        "type": "owner",
+        "createdAt": "2022-06-08T09:02:29.000Z",
+        "updatedAt": "2024-05-14T10:25:53.000Z",
+        "createdBy": "61e21550-051e-4ffe-a43c-f62495617a06",
+        "updatedBy": "61e21550-051e-4ffe-a43c-f62495617a06",
+        "address": {
+            "id": "e9957e67-4901-4434-b461-44201865188a"
+        },
+        "driverLicenseUrl": null,
+        "equityStakePercentage": null
+    },
+    {
+        "id": "f5867dc3-21c8-49a9-8f57-c2f35803a4cf",
+        "name": "newtestcontact",
+        "email": null,
+        "notifications": true,
+        "primary": false,
+        "type": "owner",
+        "createdAt": "2022-06-08T09:02:29.000Z",
+        "updatedAt": "2024-05-14T10:25:53.000Z",
+        "createdBy": "7aab06c6-58bc-4951-9ea9-71fbdc42f531",
+        "updatedBy": "7aab06c6-58bc-4951-9ea9-71fbdc42f531",
+        "address": {
+            "id": "48e83dcb-5acf-482d-86d4-5b8e0229be05"
+        },
+        "driverLicenseUrl": null,
+        "equityStakePercentage": null
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "name": "cdk",
+  "version": "0.1.0",
+  "bin": {
+    "cdk": "bin/cdk.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "jest",
+    "cdk": "cdk",
+    "diff:dev": "export SERVICE_SHORT_NAME=lm && cdk diff --profile bobtail-sandbox --context env=development",
+    "diff:prod": "export SERVICE_SHORT_NAME=lm && cdk diff --profile bobtail-20 --context env=production",
+    "deploy:dev": "export SERVICE_SHORT_NAME=lm && cdk deploy --profile bobtail-sandbox --context env=development",
+    "deploy:prod": "export SERVICE_SHORT_NAME=lm && cdk deploy --profile bobtail-20 --context env=production",
+    "lint": "eslint \"{bin,lib,test}/**/*.ts\"",
+    "lint:fix": "eslint \"{bin,lib,test}/**/*.ts\" --fix"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.2.4",
+    "@types/node": "^20.8.7",
+    "@types/source-map-support": "^0.5.9",
+    "@typescript-eslint/eslint-plugin": "^6.8.0",
+    "@typescript-eslint/parser": "^6.8.0",
+    "aws-cdk": "^2.55.0",
+    "esbuild": "^0.19.5",
+    "eslint": "^8.29.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "jest": "^29.3.1",
+    "prettier": "^3.0.3",
+    "ts-jest": "^29.0.3",
+    "ts-node": "^10.9.1",
+    "typescript": "~5.2.2"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.55.0",
+    "constructs": "^10.1.190",
+    "dotenv": "^16.0.3",
+    "source-map-support": "^0.5.21"
+  }
+}

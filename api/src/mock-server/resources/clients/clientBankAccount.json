@@ -1,0 +1,35 @@
+{
+  "id": "c371e690-c0c5-4a63-be0d-ee9f1444bf66",
+  "status": "active",
+  "modernTreasuryAccount": {
+    "account": "1111222233330000",
+    "confirmedWire": true,
+    "externalAccountId": "4081e729-8536-4ece-8b24-1f1d4ae3cf29",
+    "id": "b4ebed46-b209-45a7-a659-3d2f3c11fcee",
+    "routingNumber": "312000032",
+    "status": "verified",
+    "wireRoutingNumber": "021000021"
+  },
+  "plaidAccount": {
+    "accessToken": "access-sandbox-50f58d69-de61-4772-91ba-05077b2414f5",
+    "accountId": "6qMX7pLM7xH5ANjJNAKxhWvdAjwg8kC8k84Qb",
+    "bankAccountName": "Plaid Checking",
+    "bankAccountOfficialName": "Plaid Gold Standard 0% Interest Checking",
+    "bankAccountOwnerName": "Myles-Stuart LLC",
+    "id": "0c7acebf-0ceb-401b-9b03-3f77da5b5965",
+    "itemId": "APr1mJ4rmMudAoqwoAj9i7nXJ61Jn4C1qvaMB",
+    "linkSessionId": "e52fda54-725f-4efe-99d7-ee4d8d2021ce",
+    "publicToken": "public-sandbox-8bd42aa3-b345-4a4b-8ca6-e6b89e1c8e78",
+    "verificationStatus": "Verified"
+  },
+  "products": [
+    {
+      "id": "c371e690-c0c5-4a63-be0d-ee9f1444bf66",
+      "name": "FACTORING"
+    }
+  ],
+  "created_by": "84dac616-898e-4a3f-8e11-a5b243438de1",
+  "created_at": "2023-04-10T14:26:28.000Z",
+  "updated_by": "d3358356-3423-4135-8bb5-3059afc46c7d",
+  "updated_at": "2023-04-10T14:26:28.000Z"
+}

@@ -1,0 +1,10 @@
+{
+    "id": "",
+    "state": "pending",
+    "transferType": "ach",
+    "batchTransferId": "",
+    "totalAmount": 200,
+    "metadata": {},
+    "transfers": []
+  }
+  

@@ -1,0 +1,18 @@
+{
+  "DB_SECRET_ARN": "db-secret-arn",
+  "AUTH0_SECRET_ARN": "auth0-secret-arn",
+  "PERUSE_SECRET_ARN": "peruse-secret-arn",
+  "TWILIO_ACCOUNT_SECRET_ARN": "twilio-secret-arn",
+  "FILESTACK_SECRET_ARN": "filestack-secret-arn",
+  "JWT_SECURITY_STRATEGY": "anonymous",
+  "CLIENT_SERVICE_URL": "http://localhost:5002/clients",
+  "BROKER_SERVICE_URL": "http://localhost:5002/brokers",
+  "PERUSE_URL": "https://api-service.staging.peruseml.com",
+  "API_DOMAIN_ALIAS": "http://localhost",
+  "EMAIL_PARSED_NOTIFICATION_QUEUE_URL": null,
+  "SENTRY_SAMPLE_RATE_ERRORS": 0,
+  "SENTRY_DSN": "",
+  "SENTRY_ENABLED": false,
+  "SEGMENT_WRITE_KEY_SECRET_ARN": "segment-write-key-secret-arn",
+  "SEGMENT_ENABLED": false
+}

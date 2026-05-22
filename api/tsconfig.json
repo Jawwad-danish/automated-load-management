@@ -1,0 +1,156 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "target": "es2022",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "resolveJsonModule": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "useDefineForClassFields": false,
+    "paths": {
+      "@common": [
+        "src/common/index"
+      ],
+      "@common/*": [
+        "src/common/*"
+      ],
+      "@core": [
+        "src/core/index"
+      ],
+      "@core/context": [
+        "src/core/context/index"
+      ],
+      "@core/data": [
+        "src/core/data/index"
+      ],
+      "@core/decorators": [
+        "src/core/decorators/index"
+      ],
+      "@core/errors": [
+        "src/core/errors/index"
+      ],
+      "@core/environment": [
+        "src/core/environment/index"
+      ],
+      "@core/mapping": [
+        "src/core/mapping/index"
+      ],
+      "@core/observability": [
+        "src/core/observability/index"
+      ],
+      "@core/test": [
+        "src/core/test/index"
+      ],
+      "@core/timers": [
+        "src/core/timers/index"
+      ],
+      "@core/types": [
+        "src/core/types/index"
+      ],
+      "@core/util": [
+        "src/core/util/index"
+      ],
+      "@core/http": [
+        "src/core/http/index"
+      ],
+      "@module-api-client": [
+        "src/modules/api-client/index"
+      ],
+      "@module-aws": [
+        "src/modules/aws/index"
+      ],
+      "@module-brokers": [
+        "src/modules/brokers/index"
+      ],
+      "@module-clients": [
+        "src/modules/clients/index"
+      ],
+      "@module-config": [
+        "src/modules/bobtail-config/index"
+      ],
+      "@module-cqrs": [
+        "src/modules/cqrs/index"
+      ],
+      "@module-database": [
+        "src/modules/database/index"
+      ],
+      "@module-documents": [
+        "src/modules/documents/index"
+      ],
+      "@module-documents/data": [
+        "src/modules/documents/data/index"
+      ],
+      "@module-documents-request": [
+        "src/modules/documents-request/index"
+      ],
+      "@module-documents-request/data": [
+        "src/modules/documents-request/data/index"
+      ],
+      "@module-drivers": [
+        "src/modules/drivers/index"
+      ],
+      "@module-filestack": [
+        "src/modules/filestack/index"
+      ],
+      "@module-filestack/test": [
+        "src/modules/filestack/test/index"
+      ],
+      "@module-segment": [
+        "src/modules/segment/index"
+      ],
+      "@module-persistence": [
+        "src/modules/persistence/index"
+      ],
+      "@module-peruse": [
+        "src/modules/peruse/index"
+      ],
+      "@module-persistence/entities": [
+        "src/modules/persistence/entities/index"
+      ],
+      "@module-persistence/repositories": [
+        "src/modules/persistence/repositories/index"
+      ],
+      "@module-persistence/test": [
+        "src/modules/persistence/test/index"
+      ],
+      "@module-tag-definitions": [
+        "src/modules/tag-definitions/index"
+      ],
+      "@module-tag-definitions/test": [
+        "src/modules/tag-definitions/test/index"
+      ],
+      "@module-load-tag-activity": [
+        "src/modules/load-tag-activity/index"
+      ],
+      "@module-auth": [
+        "src/modules/auth/index"
+      ],
+      "@module-loads": [
+        "src/modules/loads/index"
+      ],
+      "@module-logging": [
+        "src/modules/logging/index"
+      ],
+      "@module-twilio": [
+        "src/modules/twilio/index"
+      ],
+  
+    }
+  }
+}

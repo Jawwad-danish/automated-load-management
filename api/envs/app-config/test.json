@@ -1,0 +1,5 @@
+{
+  "DB_SECRET_ARN": "db-secret-arn",
+  "AUTH0_SECRET_ARN": "auth0-secret-arn",
+  "API_KEYS_SECRET_ARN": "load-management-api-keys-secret-arn"
+}
