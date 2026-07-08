@@ -1,0 +1,85 @@
+# Workflow name
+name: Deploy to Fargate
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        description: Environment where to deploy
+        required: true
+        default: development
+      environment_shortname:
+        type: string
+        description: Environment shortname where to deploy (mandatory)
+        required: true
+        default: dev
+      ecr_image_url:
+        type: string
+        description: The ECR image url that will be used to deploy the service
+        required: true
+
+defaults:
+  run:
+    working-directory: api
+    shell: bash
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    timeout-minutes: 15
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+        mask-aws-account-id: 'false'
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v2
+      with:
+        mask-password: 'true'
+
+    - name: Download task definition
+      env:
+        TASK_DEF_NAME_SUFFIX: -taskdef
+      run: |
+        echo "Running for env ${{ inputs.environment_shortname }}"
+        aws ecs describe-task-definition --task-definition ${{inputs.environment_shortname}}${{env.TASK_DEF_NAME_SUFFIX}} --query taskDefinition > task-definition.json
+        echo $(cat task-definition.json | jq 'del(
+                          .taskDefinitionArn,
+                          .requiresAttributes,
+                          .compatibilities,
+                          .revision,
+                          .status,
+                          .registeredAt,
+                          .registeredBy
+                      )') > task-definition.json
+
+    - name: Fill in the new image ID in the Amazon ECS task definition
+      id: task-def
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      env:
+        CONTAINER_NAME_SUFFIX: -container
+      with:
+        task-definition: api/task-definition.json
+        container-name:   ${{ inputs.environment_shortname }}${{ env.CONTAINER_NAME_SUFFIX }}
+        image: ${{ inputs.ecr_image_url }}
+
+    - name: Deploy Amazon ECS task definition
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      env:
+        CLUSTER_NAME_SUFFIX: -cluster
+        SERVICE_NAME_SUFFIX: -service
+      with:
+        task-definition: ${{ steps.task-def.outputs.task-definition }}
+        service: ${{ inputs.environment_shortname }}${{ env.SERVICE_NAME_SUFFIX }}
+        cluster:  ${{ inputs.environment_shortname }}${{ env.CLUSTER_NAME_SUFFIX }}
+        wait-for-service-stability: true

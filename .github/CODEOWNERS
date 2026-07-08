@@ -1,0 +1,7 @@
+# Order is important; the last matching pattern takes the most precedence.
+
+# Default reviewers
+* @andreiseceavsp @ciprian-vsp @dnicavsp @gulinbVSP @AhsanNissar @Jawwad-danish
+
+# Infra reviewers
+/cdk @andreiseceavsp @ciprian-vsp @dnicavsp @gulinbVSP @AhsanNissar @Jawwad-danish

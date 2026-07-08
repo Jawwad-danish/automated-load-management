@@ -1,0 +1,61 @@
+# Workflow name
+name: Deploy Infra
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        description: Environment where to deploy
+        required: true
+        default: development
+      api_service_ecr_image_tag:
+        type: string
+        description: Api service ecr image tag
+
+defaults:
+  run:
+    working-directory: cdk
+    shell: bash
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Install npm dependencies - api
+        run: npm ci
+        working-directory: api
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: cdk diff
+        env:
+          API_SERVICE_ECR_IMAGE_TAG: ${{ inputs.api_service_ecr_image_tag }}
+        run: |
+          echo "Running for env ${{ inputs.environment }}"
+          npm run cdk diff -- --context env=${{ inputs.environment }}
+
+      - name: cdk deploy
+        env:
+          API_SERVICE_ECR_IMAGE_TAG: ${{ inputs.api_service_ecr_image_tag }}
+        run: npm run cdk deploy -- --require-approval never --all --context env=${{ inputs.environment }}

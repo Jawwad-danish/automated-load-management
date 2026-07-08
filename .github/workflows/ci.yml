@@ -1,0 +1,48 @@
+# Workflow name
+name: CI
+
+on:
+  workflow_call:
+    inputs:
+      workdir:
+        type: string
+        description: directory where to run
+        required: true
+        default: api
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
+
+      - name: Install npm dependencies
+        run: echo "Running in ${{ inputs.workdir }}" && npm install
+        working-directory: ${{ inputs.workdir }}
+
+      - name: Install npm dependencies - api
+        if: ${{ inputs.workdir == 'cdk' }}
+        run: npm install
+        working-directory: api
+
+      - name: Lint code
+        run: npm run lint
+        working-directory: ${{ inputs.workdir }}
+
+      - name: Build code
+        run: npm run build
+        working-directory: ${{ inputs.workdir }}
+
+      - name: Run unit tests
+        run: npm run test
+        working-directory: ${{ inputs.workdir }}

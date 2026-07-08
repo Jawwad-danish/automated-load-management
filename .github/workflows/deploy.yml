@@ -1,0 +1,79 @@
+# Parallel(CI + Env) -> Deploy infra (if needed) -> Parallel (Deploy Fargate + Lambda) (if needed)
+# Workflow name
+name: Bobtail CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: Environment where to deploy (mandatory)
+        required: true
+        default: development
+        options:
+        - development
+        - production
+      run-migrations:
+          type: boolean
+          description: Run database migrations
+          default: true
+          required: true
+
+jobs:
+  ci:
+    name: CI
+    uses: ./.github/workflows/ci.yml
+    with:
+      workdir: api
+
+  ci-infra:
+    name: Run CDK CI
+    uses: ./.github/workflows/ci.yml
+    with:
+      workdir: cdk
+
+  env:
+    name: Determine Env
+    # we don't want to run this and deploy on pull_requests.
+    # we only want CI to run
+    if: ${{ github.event_name != 'pull_request' }}
+    uses: ./.github/workflows/env.yml
+    with:
+      environment: ${{ inputs.environment }}
+
+  build-image:
+    name: Build docker image
+    if: ${{(needs.env.outputs.env_name == 'development' || startsWith(github.ref, 'refs/tags/')) && github.event_name == 'workflow_dispatch' && needs.env.outputs.env_shortname}}
+    uses: ./.github/workflows/build-image.yml
+    needs: [ci, env]
+    with:
+      environment: ${{needs.env.outputs.env_name}}
+      environment_shortname: ${{needs.env.outputs.env_shortname}}
+    secrets: inherit
+
+  deploy-infraw:
+    name: Deploy Infra
+    if: ${{(needs.env.outputs.env_name == 'development' || startsWith(github.ref, 'refs/tags/')) && github.event_name == 'workflow_dispatch' && needs.env.outputs.env_name}}
+    uses: ./.github/workflows/deploy-infra.yml
+    needs: [ci-infra, env, build-image]
+    with:
+      environment: ${{needs.env.outputs.env_name}}
+      api_service_ecr_image_tag: ${{ needs.build-image.outputs.ecr_image_tag }}
+    secrets: inherit
+
+  deploy-migrations:
+    name: Deploy Migrations
+    if: ${{always() && ((github.event_name == 'workflow_dispatch' && github.event.inputs.run-migrations == 'true') ||  needs.env.outputs.run_app_deploy == 'true') && needs.env.outputs.env_shortname}}
+    uses: ./.github/workflows/deploy-migrations.yml
+    needs:
+      - ci
+      - env
+    with:
+      environment: ${{needs.env.outputs.env_name}}
+      environment_shortname: ${{needs.env.outputs.env_shortname}}
+    secrets: inherit
+

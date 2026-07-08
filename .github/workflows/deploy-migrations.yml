@@ -1,0 +1,55 @@
+# Workflow name
+name: Deploy Database Migrations
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        description: Environment where to deploy
+        required: true
+        default: development
+      environment_shortname:
+        type: string
+        description: Environment shortname where to deploy (mandatory)
+        required: true
+        default: dev
+
+defaults:
+  run:
+    working-directory: api
+    shell: bash
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    timeout-minutes: 3
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+        mask-aws-account-id: 'false'
+
+    - name: Run Migrations
+      run: |
+        echo "Running Migrations for env ${{ inputs.environment_shortname }}"
+        export ENV=${{ inputs.environment_shortname }}
+        echo 'Starting a session (port forwarding)'
+        npm run db:connect:migration:start-session
+        npm install
+        echo 'Running database migrations'
+        npm run migration:run:$ENV > migration.log &
+        timeout 50 bash -c "while ! grep -qE 'Successfully migrated up to the latest version|MigrationError|error:' migration.log; do sleep 5; echo 'Waiting for migration to finish'; done"
+        cat migration.log
+        echo 'Stopping session'
+        npm run db:connect:migration:stop-session
+        grep 'MigrationError|error' migration.log && exit 1
+        echo 'Done'
+
